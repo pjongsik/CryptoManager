@@ -17,8 +17,6 @@ namespace EncryptionTest
         Func<string, string> _encryption = null;
         Func<string, string> _decryption = null;
 
-        List<UpdateInfo> _updateList = null;
-
         public CryptoManager()
         {
         }
@@ -113,7 +111,6 @@ namespace EncryptionTest
             // SQL문 실행
             foreach (var updateInfo in updateList)
             {
-                // 여기할차례
                 SqlCommand commandUpdate = new SqlCommand(updateInfo.ToString(), connection);
                 commandUpdate.ExecuteNonQuery();
             }

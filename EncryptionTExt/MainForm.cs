@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using EncryptionTest.Utility;
 using Framework.Core;
 
 namespace EncryptionTest
@@ -27,15 +28,20 @@ namespace EncryptionTest
             Work();
         }
 
+        /// <summary>
+        ///  암호화 키
+        /// </summary>
+        const string _key = "thisiskey^^!";
+
         private void Work()
         {
             try
             {
-                Func<string, string> funcEncrypt = Cryptographer.Encrypt;
-                Func<string, string> funcDecrypt = Cryptographer.Decrypt;
+                //Func<string, string> funcEncrypt = Cryptographer.Encrypt;
+                //Func<string, string> funcDecrypt = Cryptographer.Decrypt;
 
                 // 암복호화 메소드
-                CryptoManager manager = new CryptoManager(funcEncrypt, funcDecrypt);
+                CryptoManager manager = new CryptoManager(AESEncryption, AESDecryption);
 
                 // 암호화할 테이블의 필드들
                 manager.SetTableFieldList("Employee", new List<string> { "SocialSecurityNo" });
@@ -58,5 +64,16 @@ namespace EncryptionTest
         {
             this.Close();
         }
+
+        public string AESEncryption(string text)
+        {
+            return AESCrypto.Encrypt(text, _key);
+        }
+
+        public string AESDecryption(string text)
+        {
+            return AESCrypto.Decrypt(text, _key);
+        }
+
     }
 }
